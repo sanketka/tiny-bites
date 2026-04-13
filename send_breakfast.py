@@ -23,6 +23,16 @@ def load_pantry() -> str:
     return "\n".join(lines)
 
 
+def load_cuisine_mode() -> str:
+    config_path = os.path.join(os.path.dirname(__file__), "config.txt")
+    with open(config_path) as f:
+        for line in f:
+            line = line.strip()
+            if line.startswith("CUISINE_MODE="):
+                return line.split("=", 1)[1].strip().lower()
+    return "mixed"
+
+
 def load_recent_recipes() -> list[str]:
     if not os.path.exists(RECIPE_LOG_PATH):
         return []
@@ -52,8 +62,8 @@ Hard rules:
 - Do NOT repeat any recipe from the "Recent recipes" list provided.
 
 Recipe style:
-- Mix it up — rotate between Western and Indian breakfasts across the week.
-- Indian options are strongly encouraged: poha, upma, soft idli, moong dal chilla, daliya khichdi, rava uttapam, etc.
+- {cuisine_instruction}
+- Indian options include: poha, upma, soft idli, moong dal chilla, daliya khichdi, rava uttapam, etc.
 - Indian dishes must still hit the protein requirement — add dal, egg, yogurt, or tofu where needed.
 - Use ghee for Indian recipes instead of butter where appropriate.
 
@@ -92,10 +102,20 @@ def generate_recipe() -> str:
         else "No recent recipes yet."
     )
 
+    cuisine_mode = load_cuisine_mode()
+    if cuisine_mode == "western":
+        cuisine_instruction = "Only suggest Western breakfasts (eggs, oats, yogurt bowls, toast-based, etc.). No Indian recipes."
+    elif cuisine_mode == "indian":
+        cuisine_instruction = "Only suggest Indian breakfasts (poha, upma, idli, chilla, khichdi, etc.). No Western recipes."
+    else:
+        cuisine_instruction = "Mix it up — rotate between Western and Indian breakfasts across the week."
+
+    system = SYSTEM_PROMPT.replace("{cuisine_instruction}", cuisine_instruction)
+
     message = client.messages.create(
         model="claude-haiku-4-5-20251001",
         max_tokens=600,
-        system=SYSTEM_PROMPT,
+        system=system,
         messages=[
             {
                 "role": "user",

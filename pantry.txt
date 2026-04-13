@@ -2,9 +2,9 @@
 # The breakfast bot reads this every morning before generating a recipe.
 # Lines starting with # are ignored.
 
-Proteins: Eggs, Yogurt, Cottage Cheese, Almond Butter / Peanut Butter, Tofu, Moong Dal, Chana Dal, Toor Dal
+Proteins: Eggs, Yogurt, Cottage Cheese, Almond Butter / Peanut Butter, Tofu
 
-Carbs: Whole Wheat Bread, Rolled Oats, Poha (flattened rice), Semolina (rava/sooji), Idli/Dosa batter (store-bought), Broken Wheat (daliya)
+Carbs: Whole Wheat Bread, Rolled Oats, Poha (flattened rice), Semolina (rava/sooji)
 
 Produce: Seasonal fruits, Berries (blueberries, strawberries, raspberries), Avocado, Spinach, Carrots, Sweet Potato, Tomatoes, Peas (frozen)
 
