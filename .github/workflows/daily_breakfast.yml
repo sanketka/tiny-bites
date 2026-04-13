@@ -1,0 +1,39 @@
+name: Daily Baby Breakfast
+
+on:
+  schedule:
+    # 8:00 PM PDT = 03:00 UTC next day (Apr–Nov)
+    # Update to 04:00 UTC during PST (Nov–Mar)
+    - cron: "0 3 * * *"
+  workflow_dispatch: # allows manual trigger from GitHub UI
+
+jobs:
+  send-breakfast:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: "3.11"
+
+      - name: Install dependencies
+        run: pip install -r requirements.txt
+
+      - name: Send breakfast recipe
+        env:
+          ANTHROPIC_API_KEY: ${{ secrets.ANTHROPIC_API_KEY }}
+          TELEGRAM_BOT_TOKEN: ${{ secrets.TELEGRAM_BOT_TOKEN }}
+          TELEGRAM_CHAT_ID: ${{ secrets.TELEGRAM_CHAT_ID }}
+        run: python send_breakfast.py
+
+      - name: Commit updated recipe log
+        run: |
+          git config user.name "breakfast-bot"
+          git config user.email "bot@noreply.github.com"
+          git add recipe_log.json
+          git diff --staged --quiet || git commit -m "log: $(date +%Y-%m-%d)"
+          git push

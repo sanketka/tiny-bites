@@ -1,0 +1,13 @@
+# Edit this file to reflect what you actually have stocked.
+# The breakfast bot reads this every morning before generating a recipe.
+# Lines starting with # are ignored.
+
+Proteins: Eggs, Yogurt, Cottage Cheese, Almond Butter / Peanut Butter, Tofu, Moong Dal, Chana Dal, Toor Dal
+
+Carbs: Whole Wheat Bread, Rolled Oats, Poha (flattened rice), Semolina (rava/sooji), Idli/Dosa batter (store-bought), Broken Wheat (daliya)
+
+Produce: Seasonal fruits, Berries (blueberries, strawberries, raspberries), Avocado, Spinach, Carrots, Sweet Potato, Tomatoes, Peas (frozen)
+
+Dairy: A2 Whole Milk, Butter, Ghee
+
+Pantry Staples: Olive Oil, Maple Syrup, Cinnamon, Vanilla Extract, Turmeric, Cumin Seeds, Mustard Seeds, Hing (asafoetida), Curry Leaves
