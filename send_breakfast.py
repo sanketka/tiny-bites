@@ -131,6 +131,69 @@ def generate_recipe() -> str:
     return message.content[0].text.strip()
 
 
+PANTRY_SUGGESTIONS_PROMPT = """You are a nutritionist and local food expert helping a parent in San Francisco, CA find seasonal ingredients for their 15-month-old's breakfasts.
+
+Suggest ingredients that:
+- Are currently in season in the San Francisco Bay Area
+- Are NOT on the pantry list provided
+- Make excellent, nutritious breakfast options for a 15-month-old
+- Are easy to find at local grocery stores or farmers markets in SF
+
+For each suggestion, provide:
+- Ingredient name
+- Benefit: why it's in season now and what it adds nutritionally
+- Try it in: a sample recipe name and one-sentence description
+
+Format each suggestion like this (plain text, no markdown):
+
+[Ingredient Name]
+Benefit: [seasonal + nutritional benefit]
+Try it in: [Recipe Name] — [one sentence description]
+
+Only suggest what's genuinely in season. Fewer strong picks beats a long list of mediocre ones.
+"""
+
+
+def is_friday() -> bool:
+    return date.today().weekday() == 4
+
+
+def generate_pantry_suggestions() -> str:
+    client = anthropic.Anthropic(api_key=os.environ["ANTHROPIC_API_KEY"])
+    today = date.today().strftime("%B %d, %Y")
+
+    message = client.messages.create(
+        model="claude-haiku-4-5-20251001",
+        max_tokens=600,
+        system=PANTRY_SUGGESTIONS_PROMPT,
+        messages=[
+            {
+                "role": "user",
+                "content": (
+                    f"Today is {today}. I'm in San Francisco, CA.\n\n"
+                    f"Current pantry (do NOT suggest these):\n{load_pantry()}\n\n"
+                    f"What seasonal ingredients should I pick up this weekend for my 15-month-old's breakfasts?"
+                ),
+            }
+        ],
+    )
+
+    return message.content[0].text.strip()
+
+
+def send_pantry_suggestions_telegram(suggestions: str) -> None:
+    token = os.environ["TELEGRAM_BOT_TOKEN"]
+    chat_id = os.environ["TELEGRAM_CHAT_ID"]
+    text = f"Weekend Pantry Picks — what's in season in SF right now\n\n{suggestions}"
+
+    response = requests.post(
+        f"https://api.telegram.org/bot{token}/sendMessage",
+        json={"chat_id": chat_id, "text": text},
+        timeout=10,
+    )
+    response.raise_for_status()
+
+
 def send_telegram(recipe: str) -> None:
     token = os.environ["TELEGRAM_BOT_TOKEN"]
     chat_id = os.environ["TELEGRAM_CHAT_ID"]
@@ -151,3 +214,7 @@ if __name__ == "__main__":
     name = extract_recipe_name(recipe)
     save_recipe_to_log(name)
     send_telegram(recipe)
+
+    if is_friday():
+        suggestions = generate_pantry_suggestions()
+        send_pantry_suggestions_telegram(suggestions)
