@@ -561,6 +561,19 @@ def setup_github_secrets(anthropic_key: str, telegram_token: str, telegram_chat_
         print(f"  {dim('Add them in Settings → Secrets → Actions when ready.')}")
         return
 
+    # Detect repo from git remote so secrets go to the right place
+    remote_result = subprocess.run(
+        ["git", "remote", "get-url", "origin"],
+        capture_output=True, text=True, cwd=SCRIPT_DIR,
+    )
+    repo_flag = []
+    if remote_result.returncode == 0:
+        remote_url = remote_result.stdout.strip()
+        # Works for both SSH (git@github.com:owner/repo.git) and HTTPS
+        match = re.search(r"github\.com[:/](.+?)(?:\.git)?$", remote_url)
+        if match:
+            repo_flag = ["--repo", match.group(1)]
+
     print()
     for name, value in [
         ("ANTHROPIC_API_KEY",  anthropic_key),
@@ -568,7 +581,7 @@ def setup_github_secrets(anthropic_key: str, telegram_token: str, telegram_chat_
         ("TELEGRAM_CHAT_ID",   telegram_chat_id),
     ]:
         result = subprocess.run(
-            [gh, "secret", "set", name, "--body", value],
+            [gh, "secret", "set", name, "--body", value] + repo_flag,
             capture_output=True, text=True,
         )
         print(f"  {ok(name + ' saved') if result.returncode == 0 else err('Failed to save ' + name)}")
