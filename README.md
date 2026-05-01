@@ -23,41 +23,30 @@ That's it. You'll get your first recipe at the time you chose during setup.
 
 ![Setup flow](https://github.com/user-attachments/assets/5d229d2c-273d-4335-a7fe-dd155897eda6)
 
-## Prerequisites
+## Before You Start
+
+Have these four things ready before running setup:
 
 - **Python 3.9+**
-- **GitHub CLI (`gh`)** — recommended. The setup script uses it to set your repo secrets automatically. Install with `brew install gh`, then run `gh auth login`. [Other platforms](https://cli.github.com/manual/installation). If you skip this, you'll set the three secrets manually in GitHub.
-- **Telegram account** and a bot — see [Setting up Telegram](#setting-up-telegram) below
-- **Anthropic API key** from [console.anthropic.com](https://console.anthropic.com) (Claude Haiku costs fractions of a cent per recipe)
-- **GitHub account** (GitHub Actions runs the bot on schedule, free for public repos)
+- **GitHub account** — you'll fork this repo and GitHub Actions runs the bot for free
+- **Telegram account** — the bot delivers recipes here. No bot setup needed upfront; setup walks you through it.
+- **Anthropic API key** — get one at [console.anthropic.com](https://console.anthropic.com). Claude Haiku costs fractions of a cent per recipe.
+
+**Recommended:** Install the [GitHub CLI](https://cli.github.com) (`brew install gh`, then `gh auth login`). Setup uses it to configure your repo secrets automatically. Without it, you'll set three secrets manually in GitHub Settings.
 
 ## What Setup Does
 
-`python setup_bot.py` handles the full onboarding in one flow:
+`python setup_bot.py` handles everything in order — just follow the prompts:
 
-1. **Prerequisites** — checks gh CLI, walks you through getting an Anthropic API key and creating a Telegram bot, auto-detects your chat ID
-2. **Your child** — name, birthday (age is calculated automatically from this)
+1. **Prerequisites** — checks gh CLI, walks you through getting your Anthropic API key and creating a Telegram bot, auto-detects your chat ID
+2. **Your child** — name and birthday (age is calculated automatically)
 3. **Location** — city (for seasonal pantry suggestions) and timezone
-4. **Preferences** — cuisine style (Western, Indian, or mixed), allergies
-5. **Schedule** — what time to receive recipes, which day to get pantry suggestions
+4. **Preferences** — cuisine style (Western, Indian, or mixed) and allergies
+5. **Schedule** — what time to receive recipes and which day to get pantry suggestions
 6. **Pantry** — option to open `pantry.txt` in your editor before continuing
-7. **Live test** — runs `send_breakfast.py` right now so you can confirm a recipe arrives in Telegram before going live
-8. **GitHub secrets** — sets `ANTHROPIC_API_KEY`, `TELEGRAM_BOT_TOKEN`, and `TELEGRAM_CHAT_ID` in your repo via gh CLI (or prints instructions to do it manually)
-9. **Commit and push** — commits your config and the generated GitHub Actions workflow, then pushes
-
-## Setting up Telegram
-
-You need two things: a **bot token** and your **chat ID**.
-
-**Create your bot:**
-
-1. Open Telegram and search for **@BotFather**
-2. Send `/newbot`
-3. Pick a display name (e.g. "Breakfast Bot")
-4. Pick a username — must end in `bot` (e.g. `my_breakfast_bot`)
-5. BotFather replies with your **bot token** — it looks like `123456789:ABCdefGhIjKlmNoPQRsTUVwXyz`. Save it.
-
-The setup script auto-detects your chat ID after you paste your token and send your bot any message. You only need to look it up manually if auto-detection fails.
+7. **Live test** — sends a real recipe to your Telegram so you can confirm everything works before going live
+8. **GitHub secrets** — saves your credentials to the repo automatically via gh CLI (or prints instructions to do it manually)
+9. **Commit and push** — saves your config and activates the daily schedule
 
 ## How It Works
 
