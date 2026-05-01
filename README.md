@@ -4,7 +4,7 @@ Know what's for breakfast before you go to bed. Daily AI-generated recipes for y
 
 The bot reads your pantry, generates a safe and nutritious recipe using Claude, and sends it to your phone every evening. Safety rules (textures, choking hazards, portions) automatically adjust as your child grows.
 
-![Telegram recipe message](https://github.com/user-attachments/assets/5d229d2c-273d-4335-a7fe-dd155897eda6)
+![Telegram recipe message](https://github.com/user-attachments/assets/89ab2890-f0c4-47bc-aca5-e17ec6c62bb3)
 
 ## Quick Start
 
@@ -21,7 +21,7 @@ The setup walks you through everything: Anthropic API key, Telegram bot, your ch
 
 That's it. You'll get your first recipe at the time you chose during setup.
 
-![Setup flow](https://github.com/user-attachments/assets/dc15411d-8a0a-4e0c-bd2b-1d7dbc21d3e6)
+![Setup flow](https://github.com/user-attachments/assets/5d229d2c-273d-4335-a7fe-dd155897eda6)
 
 ## Prerequisites
 
@@ -70,7 +70,7 @@ Every day at your chosen time, a GitHub Action:
 
 On your chosen day of the week, it also suggests seasonal ingredients available near you.
 
-![Pantry suggestions message](https://github.com/user-attachments/assets/89ab2890-f0c4-47bc-aca5-e17ec6c62bb3)
+![Pantry suggestions message](https://github.com/user-attachments/assets/dc15411d-8a0a-4e0c-bd2b-1d7dbc21d3e6)
 
 ## Configuration
 
