@@ -1,35 +1,48 @@
-# Baby Breakfast Bot
+# tiny-bites
 
 Know what's for breakfast before you go to bed. Daily AI-generated recipes for your toddler, based on your pantry and your child's age.
 
 The bot reads your pantry, generates a safe and nutritious recipe using Claude, and sends it to your phone every evening. Safety rules (textures, choking hazards, portions) automatically adjust as your child grows.
 
+![Telegram recipe message](https://github.com/user-attachments/assets/5d229d2c-273d-4335-a7fe-dd155897eda6)
+
 ## Quick Start
 
 1. Fork this repo and clone your fork
 2. Make sure you have Python 3.9+ installed
-3. Run the setup:
+3. Install dependencies and run the guided setup:
 
 ```bash
 pip install -r requirements.txt
 python setup_bot.py
 ```
 
-4. Follow the prompts (takes about 5 minutes)
-5. Commit and push:
-
-```bash
-git add -A && git commit -m "Configure breakfast bot" && git push
-```
+The setup walks you through everything: Anthropic API key, Telegram bot, your child's details, delivery schedule, and preferences. At the end it runs a live test (a real recipe gets sent to your Telegram), sets your GitHub secrets automatically, and commits and pushes for you.
 
 That's it. You'll get your first recipe at the time you chose during setup.
+
+![Setup flow](https://github.com/user-attachments/assets/dc15411d-8a0a-4e0c-bd2b-1d7dbc21d3e6)
 
 ## Prerequisites
 
 - **Python 3.9+**
+- **GitHub CLI (`gh`)** — recommended. The setup script uses it to set your repo secrets automatically. Install with `brew install gh`, then run `gh auth login`. [Other platforms](https://cli.github.com/manual/installation). If you skip this, you'll set the three secrets manually in GitHub.
 - **Telegram account** and a bot — see [Setting up Telegram](#setting-up-telegram) below
 - **Anthropic API key** from [console.anthropic.com](https://console.anthropic.com) (Claude Haiku costs fractions of a cent per recipe)
 - **GitHub account** (GitHub Actions runs the bot on schedule, free for public repos)
+
+## What Setup Does
+
+`python setup_bot.py` handles the full onboarding in one flow:
+
+1. **Prerequisites** — checks gh CLI, walks you through getting an Anthropic API key and creating a Telegram bot, auto-detects your chat ID
+2. **Your child** — name, birthday (age is calculated automatically from this)
+3. **Preferences** — cuisine style (Western, Indian, or mixed), allergies
+4. **Schedule** — what time to receive recipes, which day to get pantry suggestions
+5. **Pantry** — option to open `pantry.txt` in your editor before continuing
+6. **Live test** — runs `send_breakfast.py` right now so you can confirm a recipe arrives in Telegram before going live
+7. **GitHub secrets** — sets `ANTHROPIC_API_KEY`, `TELEGRAM_BOT_TOKEN`, and `TELEGRAM_CHAT_ID` in your repo via gh CLI (or prints instructions to do it manually)
+8. **Commit and push** — commits your config and the generated GitHub Actions workflow, then pushes
 
 ## Setting up Telegram
 
@@ -43,16 +56,7 @@ You need two things: a **bot token** and your **chat ID**.
 4. Pick a username — must end in `bot` (e.g. `my_breakfast_bot`)
 5. BotFather replies with your **bot token** — it looks like `123456789:ABCdefGhIjKlmNoPQRsTUVwXyz`. Save it.
 
-**Find your chat ID:**
-
-1. Send any message to your new bot in Telegram
-2. Open this URL in your browser (replace `TOKEN` with your bot token):
-   ```
-   https://api.telegram.org/botTOKEN/getUpdates
-   ```
-3. Look for `"chat":{"id":XXXXXXXXX}` — that number is your chat ID
-
-The setup script handles step 2 automatically after you paste your token. You only need to look it up manually if auto-detection fails.
+The setup script auto-detects your chat ID after you paste your token and send your bot any message. You only need to look it up manually if auto-detection fails.
 
 ## How It Works
 
@@ -66,6 +70,8 @@ Every day at your chosen time, a GitHub Action:
 
 On your chosen day of the week, it also suggests seasonal ingredients available near you.
 
+![Pantry suggestions message](https://github.com/user-attachments/assets/89ab2890-f0c4-47bc-aca5-e17ec6c62bb3)
+
 ## Configuration
 
 All settings live in `config.toml`. Edit it directly or re-run `python setup_bot.py`.
@@ -74,7 +80,7 @@ All settings live in `config.toml`. Edit it directly or re-run `python setup_bot
 |---------|-----------------|
 | `[child]` | Name and birthday (age is calculated automatically) |
 | `[location]` | City (for seasonal suggestions) and timezone |
-| `[preferences]` | Cuisine style, prep time, nutrition priorities, allergies |
+| `[preferences]` | Cuisine style, nutrition priorities, allergies |
 | `[schedule]` | Delivery time and pantry suggestions day |
 
 ## Updating Your Pantry
