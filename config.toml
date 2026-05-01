@@ -2,12 +2,12 @@
 # To re-run guided setup: python setup_bot.py
 
 [child]
-name     = "Test"
-birthday = "2026-03-04"  # YYYY-MM-DD; age is auto-calculated
+name     = "Baby"
+birthday = "2024-01-01"  # YYYY-MM-DD; age is auto-calculated
 
 [location]
-city     = "New York"
-timezone = "America/New_York"  # IANA format — controls delivery time
+city     = "Your City, ST"
+timezone = "America/Los_Angeles"  # IANA format — controls delivery time
 
 [preferences]
 cuisine            = "western"  # western | indian | mixed
