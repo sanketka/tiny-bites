@@ -37,12 +37,13 @@ That's it. You'll get your first recipe at the time you chose during setup.
 
 1. **Prerequisites** — checks gh CLI, walks you through getting an Anthropic API key and creating a Telegram bot, auto-detects your chat ID
 2. **Your child** — name, birthday (age is calculated automatically from this)
-3. **Preferences** — cuisine style (Western, Indian, or mixed), allergies
-4. **Schedule** — what time to receive recipes, which day to get pantry suggestions
-5. **Pantry** — option to open `pantry.txt` in your editor before continuing
-6. **Live test** — runs `send_breakfast.py` right now so you can confirm a recipe arrives in Telegram before going live
-7. **GitHub secrets** — sets `ANTHROPIC_API_KEY`, `TELEGRAM_BOT_TOKEN`, and `TELEGRAM_CHAT_ID` in your repo via gh CLI (or prints instructions to do it manually)
-8. **Commit and push** — commits your config and the generated GitHub Actions workflow, then pushes
+3. **Location** — city (for seasonal pantry suggestions) and timezone
+4. **Preferences** — cuisine style (Western, Indian, or mixed), allergies
+5. **Schedule** — what time to receive recipes, which day to get pantry suggestions
+6. **Pantry** — option to open `pantry.txt` in your editor before continuing
+7. **Live test** — runs `send_breakfast.py` right now so you can confirm a recipe arrives in Telegram before going live
+8. **GitHub secrets** — sets `ANTHROPIC_API_KEY`, `TELEGRAM_BOT_TOKEN`, and `TELEGRAM_CHAT_ID` in your repo via gh CLI (or prints instructions to do it manually)
+9. **Commit and push** — commits your config and the generated GitHub Actions workflow, then pushes
 
 ## Setting up Telegram
 
