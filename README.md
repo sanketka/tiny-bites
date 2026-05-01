@@ -1,4 +1,4 @@
-# Baby Breakfast Bot
+# Tiny Bites – The Baby Breakfast Bot
 
 Know what's for breakfast before you go to bed. Daily AI-generated recipes for your toddler, based on your pantry and your child's age.
 
