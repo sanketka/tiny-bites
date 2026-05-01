@@ -1,10 +1,22 @@
+# ============================================================
+# tiny-bites — Daily Schedule
+# ============================================================
+# This workflow runs once a day to generate a breakfast recipe
+# and send it to your Telegram.
+#
+# The cron below is in UTC. It was calculated from your config:
+#   Local time: 8:00 PM (America/New_York)
+#   UTC cron:   0 0 * * *
+#
+# After a daylight saving change, recalculate with:
+#   python setup_bot.py --update-schedule
+# ============================================================
+
 name: Daily Baby Breakfast
 
 on:
   schedule:
-    # 8:00 PM PDT = 03:00 UTC next day (Apr–Nov)
-    # Update to 04:00 UTC during PST (Nov–Mar)
-    - cron: "0 3 * * *"
+    - cron: "0 0 * * *"
   workflow_dispatch: # allows manual trigger from GitHub UI
 
 jobs:

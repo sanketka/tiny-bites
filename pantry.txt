@@ -1,13 +1,7 @@
-# Edit this file to reflect what you actually have stocked.
-# The breakfast bot reads this every morning before generating a recipe.
-# Lines starting with # are ignored.
+# Update whenever you shop. Bot only uses ingredients listed here — commit and push after changes.
 
-Proteins: Eggs, Yogurt, Cottage Cheese, Almond Butter / Peanut Butter, Tofu
-
-Carbs: Whole Wheat Bread, Rolled Oats, Poha (flattened rice), Semolina (rava/sooji)
-
-Produce: Seasonal fruits, Berries (blueberries, strawberries, raspberries), Avocado, Spinach, Carrots, Sweet Potato, Tomatoes, Peas (frozen)
-
-Dairy: A2 Whole Milk, Butter, Ghee
-
-Pantry Staples: Olive Oil, Maple Syrup, Cinnamon, Vanilla Extract, Turmeric, Cumin Seeds, Mustard Seeds, Hing (asafoetida), Curry Leaves
+Proteins:       Eggs, Yogurt, Cottage Cheese, Almond Butter, Tofu
+Carbs:          Whole Wheat Bread, Rolled Oats, Poha, Semolina
+Produce:        Seasonal Fruits, Berries, Avocado, Spinach, Carrots, Sweet Potato, Peas
+Dairy:          Whole Milk, Butter, Ghee
+Pantry Staples: Olive Oil, Maple Syrup, Cinnamon, Vanilla Extract, Turmeric, Cumin Seeds, Mustard Seeds

@@ -1,7 +1,0 @@
-# Cuisine mode controls recipe variety.
-# Options:
-#   western  — Western breakfasts only
-#   indian   — Indian breakfasts only
-#   mixed    — Rotate between both (default after first week)
-
-CUISINE_MODE=western

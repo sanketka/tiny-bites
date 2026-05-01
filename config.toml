@@ -1,0 +1,20 @@
+# tiny-bites — edit these settings, then commit and push.
+# To re-run guided setup: python setup_bot.py
+
+[child]
+name     = "Test"
+birthday = "2026-03-04"  # YYYY-MM-DD; age is auto-calculated
+
+[location]
+city     = "New York"
+timezone = "America/New_York"  # IANA format — controls delivery time
+
+[preferences]
+cuisine            = "western"  # western | indian | mixed
+nutrition_priority = ["protein", "fiber"]
+allergies          = []                  # e.g. ["peanuts", "dairy"]
+
+[schedule]
+send_hour              = 20        # 20 = 8 PM; recipes arrive the evening before
+send_minute            = 0
+pantry_suggestions_day = "friday"  # monday-sunday, or "none" to disable
